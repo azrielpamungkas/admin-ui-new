@@ -1,11 +1,11 @@
 import "./App.css";
 
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import SignInPage from "./pages/signIn";
+import SignInPage from "./pages/SignIn";
 import ErrorPage from "./pages/error";
 import DashboardPage from "./pages/dashboard";
 import BalancePage from "./pages/balance";
-import SignUpPage from "./pages/signUp";
+import SignUpPage from "./pages/SignUp";
 
 function App() {
   const myRouter = createBrowserRouter([
