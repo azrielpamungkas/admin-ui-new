@@ -3,11 +3,11 @@ import MainLayout from '../components/Layouts/MainLayout'
 import Card from '../components/Elements/Card'
 import CardBalance from '../components/Fragments/CardBalance'
 import CardGoal from '../components/Fragments/CardGoal'
-import CardUpcomingBill from '../components/Fragments/CardUpComingBill'
 import CardExpenseBreakdown from '../components/Fragments/CardExpenseBreakdown'
 import CardStatistic from '../components/Fragments/CardStatistic'
 import CardRecentTransaction from '../components/Fragments/CardRecentTransaction'
 import { transactions, expensesBreakdowns, expensesStatistics, bills, balances, goals } from '../data'
+import CardUpcomingBill from '../components/Fragments/CardUpcomingBill'
 function DashboardPage() {
     return (
         <MainLayout>
