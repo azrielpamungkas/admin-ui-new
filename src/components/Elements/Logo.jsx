@@ -4,7 +4,7 @@ function Logo(props) {
     const { variant = "primary" } = props;
     const variantsClasses = {
         primary: "text-primary text-4xl",
-        secondary: "text-white text-sm sm:text-2xl",
+        secondary: "text-primary text-sm sm:text-2xl",
     };
     return (
         <div className={`flex justify-center font-poppins tracking-wide ${variantsClasses[variant] || variantsClasses.primary}`}>

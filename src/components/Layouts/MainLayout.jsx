@@ -4,9 +4,18 @@ import Input from "../Elements/Input";
 import { Notifications } from "@mui/icons-material";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
+import { ThemeContext } from "../../themeContext";
 function MainLayout(props) {
     const { children } = props;
+    const themes = [
+        { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
+        { name: "theme-blue", bgcolor: "bg-[#1E90FF]", color: "#1E90FF" },
+        { name: "theme-purple", bgcolor: "bg-[#6A5ACD]", color: "#6A5ACD" },
+        { name: "theme-pink", bgcolor: "bg-[#DB7093]", color: "#DB7093" },
+        { name: "theme-brown", bgcolor: "bg-[#8B4513]", color: "#8B4513" },
+    ];
 
+    const { theme, setTheme } = React.useContext(ThemeContext);
     const menu = [
         { id: 1, name: "Overview", icon: <Icon.Overview />, link: "/" },
         { id: 2, name: "Balances", icon: <Icon.Balance />, link: "/balance" },
@@ -18,8 +27,8 @@ function MainLayout(props) {
     ];
     return (
         <>
-            <div className="flex min-h-screen">
-                <aside className="bg-defaultBlack text-special-bg2 flex flex-col justify-between px-7 py-12">
+            <div className={`flex min-h-screen ${theme.name}`}>
+                <aside className="bg-defaultBlack text-special-bg2 flex flex-col justify-between px-12 py-12" >
                     <div>
                         <div className="mb-10">
                             <Logo variant="secondary" />
@@ -30,7 +39,7 @@ function MainLayout(props) {
                                     key={item.id}
                                     to={item.link}
                                     className={({ isActive }) =>
-                                        `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${isActive
+                                        `flex px-4 py-3 my-2 rounded-md hover:text-white hover:font-bold hover:scale-105 ${isActive
                                             ? "bg-primary text-white font-bold"
                                             : "hover:bg-special-bg3"
                                         }`
@@ -42,12 +51,27 @@ function MainLayout(props) {
                         </nav>
                     </div>
                     <div>
-                        <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
-                            <div className="mx-auto sm:mx-0">
-                                <Icon.Logout />
+                        Themes
+                        <div className="flex flex-col sm:flex-row gap-2 items-center">
+                            {themes.map((t) => (
+                                <div
+                                    key={t.name}
+                                    className={`${t.bgcolor} w-6 h-6 rounded-md cursor-pointer mb-2`}
+                                    onClick={() => setTheme(t)}
+                                ></div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <NavLink to="/login" >
+                            <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
+                                <div className="mx-auto sm:mx-0 text-primary">
+                                    <Icon.Logout />
+                                </div>
+                                <div className="ms-3 hidden sm:block">Logout</div>
                             </div>
-                            <div className="ms-3 hidden sm:block">Logout</div>
-                        </div>                        <div className="border my-10 border-b-special-bg"></div>
+                        </NavLink>
+                        <div className="border my-10 border-b-special-bg"></div>
                         <div className="flex justify-between items-center">
                             <div>Avatar</div>
                             <div className="hidden sm:block">
@@ -69,7 +93,7 @@ function MainLayout(props) {
                         </div>
                         <div className="flex items-center">
                             <div className="me-10">
-                                <Notifications className="text-gray-01 scale-110" />
+                                <Notifications className="text-primary scale-110" />
                             </div>
                             <Input backgroundColor="bg-white" border="border-white" />
                         </div>

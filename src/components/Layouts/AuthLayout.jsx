@@ -1,11 +1,13 @@
 import React from 'react'
 import Logo from '../Elements/Logo'
+import { ThemeContext } from '../../themeContext';
 
 function AuthLayout(props) {
     const { children } = props
+    const { theme } = React.useContext(ThemeContext);
     return (
         <>
-            <main className="min-h-screen bg-special-mainBg flex justify-center items-center">
+            <main className={`min-h-screen ${theme.name} flex justify-center items-center`}>
                 {/* container start */}
                 <div className="w-full max-w-sm">
                     <Logo />
