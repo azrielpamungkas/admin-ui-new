@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
 import { Notifications } from "@mui/icons-material";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../themeContext";
+import { AuthContext } from "../../context/authContext";
+import { logoutService } from "../../services/authService";
 function MainLayout(props) {
     const { children } = props;
     const themes = [
@@ -25,6 +27,19 @@ function MainLayout(props) {
         { id: 6, name: "Goals", icon: <Icon.Goal />, link: "/goal" },
         { id: 7, name: "Settings", icon: <Icon.Setting />, link: "/setting" },
     ];
+
+    const { user, logout } = useContext(AuthContext);
+    const handleLogout = async () => {
+        try {
+            await logoutService();
+            logout();
+        } catch (err) {
+            console.error(err);
+            if (err.status === 401) {
+                logout();
+            }
+        }
+    };
     return (
         <>
             <div className={`flex min-h-screen ${theme.name}`}>
@@ -63,19 +78,19 @@ function MainLayout(props) {
                         </div>
                     </div>
                     <div>
-                        <NavLink to="/login" >
+                        <div onClick={handleLogout} className="cursor-pointer">
                             <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
                                 <div className="mx-auto sm:mx-0 text-primary">
                                     <Icon.Logout />
                                 </div>
                                 <div className="ms-3 hidden sm:block">Logout</div>
                             </div>
-                        </NavLink>
+                        </div>
                         <div className="border my-10 border-b-special-bg"></div>
                         <div className="flex justify-between items-center">
                             <div>Avatar</div>
                             <div className="hidden sm:block">
-                                Username
+                                {user ? user.name : 'Guest'}
                                 <br />
                                 View Profile
                             </div>

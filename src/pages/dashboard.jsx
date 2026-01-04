@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MainLayout from '../components/Layouts/MainLayout'
 import Card from '../components/Elements/Card'
 import CardBalance from '../components/Fragments/CardBalance'
@@ -8,7 +8,43 @@ import CardStatistic from '../components/Fragments/CardStatistic'
 import CardRecentTransaction from '../components/Fragments/CardRecentTransaction'
 import { transactions, expensesBreakdowns, expensesStatistics, bills, balances, goals } from '../data'
 import CardUpcomingBill from '../components/Fragments/CardUpcomingBill'
+import { goalService } from '../services/dataService'
+import { AuthContext } from '../context/authContext'
+import AppSnackbar from '../components/Elements/AppSnackBar'
 function DashboardPage() {
+    const [goals, setGoals] = useState({});
+    const { logout } = useContext(AuthContext);
+
+
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        message: "",
+        severity: "success",
+    });
+
+    const handleCloseSnackbar = () => {
+        setSnackbar((prev) => ({ ...prev, open: false }));
+    };
+
+
+
+    const fetchGoals = async () => {
+        try {
+            const data = await goalService();
+            setGoals(data);
+        } catch (err) {
+            setSnackbar({ open: true, message: "Gagal mengambil data goals", severity: "error" });
+            if (err.status === 401) {
+                logout();
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchGoals();
+    }, []);
+
+    console.log(goals);
     return (
         <MainLayout>
             <div className="grid sm:grid-cols-12  sm:gap-6">
@@ -31,6 +67,13 @@ function DashboardPage() {
                     <CardExpenseBreakdown data={expensesBreakdowns} />
                 </div>
             </div>
+
+            <AppSnackbar
+                open={snackbar.open}
+                message={snackbar.message}
+                severity={snackbar.severity}
+                onClose={handleCloseSnackbar}
+            />
         </MainLayout>
     )
 }
