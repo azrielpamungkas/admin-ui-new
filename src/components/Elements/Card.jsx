@@ -1,7 +1,7 @@
 import React from "react";
 
 function Card(props) {
-    const { title, link = false, desc } = props;
+    const { title, link = false, desc, className = "" } = props;
 
     return (
         <div className="h-full flex  flex-col">
@@ -9,7 +9,7 @@ function Card(props) {
                 <div className="text-2xl">{title}</div>
                 {link && <div className="text-xs">View All</div>}
             </div>
-            <div className="bg-white flex-1 rounded-lg px-6 py-5 shadow-xl">
+            <div className={className ? className : "bg-white flex-1 rounded-lg px-6 py-5 shadow-xl "}>
                 {desc}
             </div>
         </div>
