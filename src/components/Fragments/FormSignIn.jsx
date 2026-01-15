@@ -12,13 +12,6 @@ const SignInSchema = Yup.object().shape({
 });
 
 function FormSignIn({ onSubmit }) {
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit(email, password);
-    }
     return (
         <>
             {/* form start */}

@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
 import { Notifications } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../themeContext";
@@ -29,7 +30,10 @@ function MainLayout(props) {
     ];
 
     const { user, logout } = useContext(AuthContext);
+    const [isLogout, setIsLogout] = useState(false);
+
     const handleLogout = async () => {
+        setIsLogout(true);
         try {
             await logoutService();
             logout();
@@ -38,11 +42,18 @@ function MainLayout(props) {
             if (err.status === 401) {
                 logout();
             }
+            setIsLogout(false);
         }
     };
     return (
         <>
             <div className={`flex min-h-screen ${theme.name}`}>
+                {isLogout && (
+                    <div className="fixed top-0 left-0 w-full h-full bg-black/40 flex flex-col gap-2 justify-center items-center z-99">
+                        <CircularProgress color="inherit" className="text-white" />
+                        <p className="text-white">Logging Out</p>
+                    </div>
+                )}
                 <aside className="bg-defaultBlack text-special-bg2 flex flex-col justify-between px-12 py-12" >
                     <div>
                         <div className="mb-10">
@@ -87,8 +98,14 @@ function MainLayout(props) {
                             </div>
                         </div>
                         <div className="border my-10 border-b-special-bg"></div>
-                        <div className="flex justify-between items-center">
-                            <div>Avatar</div>
+                        <div className="flex space-x-2 justify-between items-center">
+                            <div>
+                                <div className="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center">
+                                    <span className="text-white font-bold text-lg">
+                                        {user ? user.name.charAt(0).toUpperCase() : 'G'}
+                                    </span>
+                                </div>
+                            </div>
                             <div className="hidden sm:block">
                                 {user ? user.name : 'Guest'}
                                 <br />
@@ -100,7 +117,7 @@ function MainLayout(props) {
                 <div className="bg-special-mainBg flex-1 flex flex-col">
                     <header className="border border-b border-gray-05 px-6 py-7 flex justify-between items-center">
                         <div className="flex items-center">
-                            <div className="font-bold text-2xl me-6">Username</div>
+                            <div className="font-bold text-2xl me-6">{user ? user.name : 'Guest'}</div>
                             <div className="text-gray-03 flex">
                                 <Icon.ChevronRight size={20} />
                                 <span>May 19, 2023</span>
