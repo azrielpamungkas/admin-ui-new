@@ -24,13 +24,15 @@ function SignUpPage() {
     };
     return (
         <AuthLayout>
-            <FormSignUp onSubmit={handleRegister} />
-            <AppSnackbar
-                open={snackbar.open}
-                message={snackbar.message}
-                severity={snackbar.severity}
-                onClose={handleCloseSnackbar}
-            />
+            <>
+                <FormSignUp onSubmit={handleRegister} />
+                <AppSnackbar
+                    open={snackbar.open}
+                    message={snackbar.message}
+                    severity={snackbar.severity}
+                    onClose={handleCloseSnackbar}
+                />
+            </>
         </AuthLayout>
     )
 }

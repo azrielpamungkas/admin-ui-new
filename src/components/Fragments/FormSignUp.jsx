@@ -14,91 +14,95 @@ function FormSignUp({ onSubmit }) {
     });
     return (
         <>
-            <Formik
-                initialValues={{
-                    name: "",
-                    email: "",
-                    password: "",
-                    status: false,
-                }}
-                validationSchema={SignUpSchema}
-                onSubmit={
-                    async (values, { setSubmitting }) => {
-                        try {
-                            await onSubmit(values.name, values.email, values.password);
-                        } finally {
-                            setSubmitting(false);
+            {/* form start */}
+            <div className="mt-16">
+                <Formik
+                    initialValues={{
+                        name: "",
+                        email: "",
+                        password: "",
+                        status: false,
+                    }}
+                    validationSchema={SignUpSchema}
+                    onSubmit={
+                        async (values, { setSubmitting }) => {
+                            try {
+                                await onSubmit(values.name, values.email, values.password);
+                            } finally {
+                                setSubmitting(false);
+                            }
                         }
                     }
-                }
-            > {({ isSubmitting }) => (
-                <Form>
-                    {/* NAME */}
-                    <div className="mb-6">
-                        <Field name="name">
-                            {({ field }) => (
-                                <LabeledInput
-                                    {...field}
-                                    id="name"
-                                    type="text"
-                                    label="Full Name"
-                                    placeholder="John Doe"
-                                />
-                            )}
-                        </Field>
-                        <ErrorMessage
-                            name="name"
-                            component="p"
-                            className="text-red-500 text-xs mt-1"
-                        />
-                    </div>
+                > {({ isSubmitting }) => (
+                    <Form>
+                        {/* NAME */}
+                        <div className="mb-6">
+                            <Field name="name">
+                                {({ field }) => (
+                                    <LabeledInput
+                                        {...field}
+                                        id="name"
+                                        type="text"
+                                        label="Full Name"
+                                        placeholder="John Doe"
+                                    />
+                                )}
+                            </Field>
+                            <ErrorMessage
+                                name="name"
+                                component="p"
+                                className="text-red-500 text-xs mt-1"
+                            />
+                        </div>
 
-                    {/* EMAIL */}
-                    <div className="mb-6">
-                        <Field name="email">
-                            {({ field }) => (
-                                <LabeledInput
-                                    {...field}
-                                    id="email"
-                                    type="email"
-                                    label="Email Address"
-                                    placeholder="hello@example.com"
-                                />
-                            )}
-                        </Field>
-                        <ErrorMessage
-                            name="email"
-                            component="p"
-                            className="text-red-500 text-xs mt-1"
-                        />
-                    </div>
+                        {/* EMAIL */}
+                        <div className="mb-6">
+                            <Field name="email">
+                                {({ field }) => (
+                                    <LabeledInput
+                                        {...field}
+                                        id="email"
+                                        type="email"
+                                        label="Email Address"
+                                        placeholder="hello@example.com"
+                                    />
+                                )}
+                            </Field>
+                            <ErrorMessage
+                                name="email"
+                                component="p"
+                                className="text-red-500 text-xs mt-1"
+                            />
+                        </div>
 
-                    {/* PASSWORD */}
-                    <div className="mb-6">
-                        <Field name="password">
-                            {({ field }) => (
-                                <LabeledInput
-                                    {...field}
-                                    id="password"
-                                    type="password"
-                                    label="Password"
-                                    placeholder="●●●●●●●●●●●●●●"
-                                />
-                            )}
-                        </Field>
-                        <ErrorMessage
-                            name="password"
-                            component="p"
-                            className="text-red-500 text-xs mt-1"
-                        />
-                    </div>
+                        {/* PASSWORD */}
+                        <div className="mb-6">
+                            <Field name="password">
+                                {({ field }) => (
+                                    <LabeledInput
+                                        {...field}
+                                        id="password"
+                                        type="password"
+                                        label="Password"
+                                        placeholder="●●●●●●●●●●●●●●"
+                                    />
+                                )}
+                            </Field>
+                            <ErrorMessage
+                                name="password"
+                                component="p"
+                                className="text-red-500 text-xs mt-1"
+                            />
+                        </div>
 
-                    {/* BUTTON */}
-                    <Button>{isSubmitting ? "Loading..." : "Register"}</Button>
-                </Form>
-            )}
+                        {/* BUTTON */}
+                        <Button>{isSubmitting ? "Loading..." : "Register"}</Button>
+                    </Form>
+                )}
 
-            </Formik>
+                </Formik>
+                {/* form end */}
+            </div>
 
             {/* teks start */}
             <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">

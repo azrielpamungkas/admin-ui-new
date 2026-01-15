@@ -27,13 +27,15 @@ function SignInPage() {
     };
     return (
         <AuthLayout>
-            <FormSignIn onSubmit={handleLogin} />
-            <AppSnackbar
-                open={snackbar.open}
-                message={snackbar.message}
-                severity={snackbar.severity}
-                onClose={handleCloseSnackbar}
-            />
+            <>
+                <FormSignIn onSubmit={handleLogin} />
+                <AppSnackbar
+                    open={snackbar.open}
+                    message={snackbar.message}
+                    severity={snackbar.severity}
+                    onClose={handleCloseSnackbar}
+                />
+            </>
         </AuthLayout>
     )
 }
